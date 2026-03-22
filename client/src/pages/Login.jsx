@@ -36,30 +36,49 @@ const Login = () => {
   const titleRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
     
     // Initial state
     gsap.set([formCardRef.current, leftPanelRef.current], { opacity: 0 });
     
     tl.fromTo(leftPanelRef.current, 
-      { x: -25, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.3 }
+      { x: -50, opacity: 0, scale: 0.95 },
+      { x: 0, opacity: 1, scale: 1, duration: 0.8 }
+    )
+    .fromTo(".left-panel-heading", 
+      { y: 30, opacity: 0, skewX: -5 },
+      { y: 0, opacity: 1, skewX: 0, duration: 0.6, ease: "back.out(1.7)" },
+      "-=0.4"
+    )
+    .fromTo(".feature-item", 
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
+      "-=0.3"
     )
     .fromTo(formCardRef.current, 
-      { y: 15, opacity: 0, scale: 0.98 }, 
-      { y: 0, opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" },
-      "-=0.1"
+      { y: 40, opacity: 0, scale: 0.9, rotationY: 10 }, 
+      { y: 0, opacity: 1, scale: 1, rotationY: 0, duration: 0.8, ease: "elastic.out(1, 0.75)" },
+      "-=0.6"
     )
     .fromTo(titleRef.current.children,
-      { y: 10, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.2, stagger: 0.05 },
-      "-=0.1"
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
+      "-=0.4"
     )
     .fromTo(".role-tab",
-      { scale: 0.95, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.2, stagger: 0.02 },
-      "-=0.1"
+      { scale: 0.5, opacity: 0, rotation: -10 },
+      { scale: 1, opacity: 1, rotation: 0, duration: 0.5, stagger: 0.05, ease: "back.out(2)" },
+      "-=0.3"
     );
+
+    // Subtle floating for the heading
+    gsap.to(".left-panel-heading", {
+      y: -5,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
   }, []);
 
   const roles = [
@@ -128,12 +147,12 @@ const Login = () => {
             <span className="text-white font-black tracking-widest text-sm uppercase">Smart Attend Pro</span>
           </div>
           
-          <h2 className="text-5xl xl:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-8">
+          <h2 className="left-panel-heading text-5xl xl:text-6xl font-black text-white leading-[1.1] tracking-tighter mb-8">
             Revolutionizing <br />
             <span className="text-blue-200">School Governance.</span>
           </h2>
           
-          <p className="text-lg text-blue-100/80 font-medium mb-12 leading-relaxed">
+          <p className="feature-item text-lg text-blue-100/80 font-medium mb-12 leading-relaxed">
             The most advanced AI-powered attendance and school management system designed for modern educational institutions.
           </p>
           
@@ -143,7 +162,7 @@ const Login = () => {
               { icon: <MapPin size={20} />, text: "Geofenced Faculty Check-ins" },
               { icon: <ShieldCheck size={20} />, text: "Secure Role-Based Access" }
             ].map((feature, i) => (
-              <div key={i} className="flex items-center gap-4 text-white/90">
+              <div key={i} className="feature-item flex items-center gap-4 text-white/90">
                 <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center border border-white/20">
                   {feature.icon}
                 </div>
@@ -178,7 +197,7 @@ const Login = () => {
               <button
                 key={r.id}
                 onClick={() => setRole(r.id)}
-                className={`role-tab flex-1 flex flex-col items-center justify-center py-3 rounded-xl transition-all duration-300 relative ${
+                className={`role-tab role-tab-crazy flex-1 flex flex-col items-center justify-center py-3 rounded-xl transition-all duration-300 relative ${
                   role === r.id 
                     ? 'bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 shadow-xl shadow-black/5 ring-1 ring-black/5' 
                     : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'

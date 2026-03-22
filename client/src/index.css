@@ -126,6 +126,27 @@
     @apply opacity-30;
   }
 
+  .login-card {
+    @apply transition-all duration-500;
+  }
+
+  .login-card:hover {
+    @apply -translate-y-2 shadow-[0_30px_60px_rgba(0,0,0,0.1)] dark:shadow-[0_30px_60px_rgba(0,0,0,0.4)];
+    transform: perspective(1000px) rotateX(2deg);
+  }
+
+  .role-tab-crazy {
+    @apply transition-all duration-300;
+  }
+
+  .role-tab-crazy:hover {
+    @apply -translate-y-1 scale-110;
+  }
+
+  .role-tab-crazy:active {
+    @apply scale-90;
+  }
+
   .btn-premium {
     @apply bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white rounded-2xl px-8 py-4 font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-2xl shadow-blue-500/25 border border-white/10 hover:shadow-indigo-500/40 active:scale-95 flex items-center justify-center gap-3;
   }
