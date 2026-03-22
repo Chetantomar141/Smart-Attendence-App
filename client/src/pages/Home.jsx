@@ -30,55 +30,145 @@ const Home = () => {
   useEffect(() => {
     // Hero Section Animation
     const ctx = gsap.context(() => {
+      // Smoother Hero Entry
       gsap.from(".hero-content > *", {
-        y: 20,
+        y: 60,
+        rotationX: -15,
         opacity: 0,
-        duration: 0.3,
-        stagger: 0.1,
-        ease: "power2.out"
+        duration: 1.2,
+        stagger: 0.2,
+        ease: "elastic.out(1, 0.8)"
       });
 
-      gsap.from(".hero-image", {
-        x: 20,
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.out",
-        delay: 0.2
+      // Continuous floating for Hero Buttons
+      gsap.to(".hero-btn-primary, .hero-btn-secondary", {
+        y: -10,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        stagger: 0.2
+      });
+
+      // Subtle Hero Background Animation
+      gsap.to(".hero-blob-1", {
+        x: "random(-50, 50)",
+        y: "random(-50, 50)",
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+      gsap.to(".hero-blob-2", {
+        x: "random(-50, 50)",
+        y: "random(-50, 50)",
+        duration: 12,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut",
+        delay: 1
+      });
+
+      // Section Header Animations
+      gsap.utils.toArray(".text-center").forEach((header) => {
+        gsap.from(header.children, {
+          scrollTrigger: {
+            trigger: header,
+            start: "top 85%",
+          },
+          y: 30,
+          opacity: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          ease: "power2.out"
+        });
       });
 
       // Features Animation with ScrollTrigger
       gsap.from(".feature-card", {
         scrollTrigger: {
           trigger: ".features-grid",
-          start: "top 95%", // Earlier trigger point
+          start: "top 80%",
           toggleActions: "play none none none",
-          once: true // Only animate once
+          once: true
         },
-        y: 15,
+        y: 100,
+        rotation: 15,
+        scale: 0.8,
         opacity: 0,
-        duration: 0.3,
-        stagger: 0.05,
-        ease: "power2.out",
-        clearProps: "all" // Clear styles after animation
+        duration: 1,
+        stagger: {
+          amount: 0.8,
+          grid: "auto",
+          from: "center"
+        },
+        ease: "elastic.out(1, 0.75)",
+        clearProps: "all"
+      });
+
+      // About Content Animation
+      gsap.from(".about-content > *", {
+        scrollTrigger: {
+          trigger: ".about-section",
+          start: "top 75%",
+        },
+        x: -50,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out"
+      });
+
+      // About Image Animation
+      gsap.from(".about-image", {
+        scrollTrigger: {
+          trigger: ".about-section",
+          start: "top 75%",
+        },
+        x: 50,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
       });
 
       // Stats Animation
       gsap.from(".stat-item", {
         scrollTrigger: {
           trigger: ".stats-section",
-          start: "top 95%",
-          toggleActions: "play none none none",
-          once: true
+          start: "top 85%",
         },
-        scale: 0.95,
+        y: 20,
         opacity: 0,
-        duration: 0.3,
-        stagger: 0.05,
+        duration: 0.5,
+        stagger: 0.1,
         ease: "power2.out",
         clearProps: "all"
       });
 
-      // Ensure ScrollTrigger refreshes positions
+      // Contact Section Animation
+      gsap.from(".contact-header > *", {
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 80%",
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power2.out"
+      });
+
+      gsap.from(".contact-card", {
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 75%",
+        },
+        scale: 0.9,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.4)"
+      });
+
       ScrollTrigger.refresh();
     });
 
@@ -159,11 +249,11 @@ const Home = () => {
           </span>
         </div>
         <div className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500 dark:text-gray-400">
-          <a href="#features" className="hover:text-blue-600 dark:hover:text-white transition-colors">Features</a>
-          <a href="#about" className="hover:text-blue-600 dark:hover:text-white transition-colors">About</a>
-          <a href="#contact" className="hover:text-blue-600 dark:hover:text-white transition-colors">Contact</a>
+          <a href="#features" className="nav-link-crazy">Features</a>
+          <a href="#about" className="nav-link-crazy">About</a>
+          <a href="#contact" className="nav-link-crazy">Contact</a>
           
-          <Link to="/login" className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg shadow-blue-500/20">
+          <Link to="/login" className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg shadow-blue-500/20 btn-crazy">
             Sign In
           </Link>
         </div>
@@ -195,7 +285,7 @@ const Home = () => {
           </div>
           
           <h1 
-            className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-gray-900 dark:text-white"
+            className="text-5xl md:text-7xl font-black tracking-tighter leading-none text-gray-900 dark:text-white hero-title-crazy cursor-default"
           >
             Complete SaaS for <br />
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent">
@@ -212,10 +302,10 @@ const Home = () => {
           <div 
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
           >
-            <Link to="/login" className="hero-btn-primary w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black flex items-center justify-center gap-3 transition-all shadow-2xl shadow-blue-500/40 group">
+            <Link to="/login" className="hero-btn-primary btn-crazy w-full sm:w-auto px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black flex items-center justify-center gap-3 transition-all shadow-2xl shadow-blue-500/40 group">
               Get Started Now <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a href="#features" className="hero-btn-secondary w-full sm:w-auto px-10 py-4 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl font-black transition-all">
+            <a href="#features" className="hero-btn-secondary btn-crazy w-full sm:w-auto px-10 py-4 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl font-black transition-all">
               Explore Features
             </a>
           </div>
@@ -234,13 +324,13 @@ const Home = () => {
             {features.map((feature, idx) => (
               <div
                 key={idx}
-                className="feature-card glass-card p-8 group border border-gray-200 dark:border-white/5 hover:border-blue-500/30 transition-all duration-500"
+                className="feature-card feature-card-crazy glow-border glass-card p-8 group border border-gray-200 dark:border-white/5 transition-all duration-500"
               >
-                <div className={`w-14 h-14 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-blue-500/10 transition-all duration-500`}>
+                <div className={`w-14 h-14 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center mb-6 group-hover:rotate-[360deg] group-hover:scale-125 group-hover:bg-blue-500/10 transition-all duration-700`}>
                   {React.cloneElement(feature.icon, { size: 28 })}
                 </div>
-                <h4 className="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight">{feature.title}</h4>
-                <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed">{feature.desc}</p>
+                <h4 className="text-xl font-black text-gray-900 dark:text-white mb-3 tracking-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">{feature.title}</h4>
+                <p className="text-gray-600 dark:text-gray-400 font-medium leading-relaxed group-hover:translate-x-1 transition-transform duration-300">{feature.desc}</p>
               </div>
             ))}
           </div>

@@ -10,6 +10,7 @@
 @layer base {
   html {
     @apply antialiased scroll-smooth;
+    scroll-padding-top: 80px;
   }
   body {
     @apply bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-gray-100 selection:bg-blue-500/30;
@@ -18,7 +19,7 @@
     width: 100%;
     min-height: 100vh;
     overflow-x: hidden;
-    transition: background-color 0.3s ease-out, color 0.3s ease-out;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   #root {
@@ -93,6 +94,38 @@
     @apply opacity-5;
   }
 
+  .feature-card-crazy {
+    @apply relative overflow-hidden transition-all duration-500 cursor-pointer;
+    perspective: 1000px;
+  }
+
+  .feature-card-crazy:hover {
+    @apply -translate-y-4 scale-[1.05] border-blue-500/50 shadow-[0_20px_40px_rgba(59,130,246,0.2)];
+    transform: rotateX(5deg) rotateY(5deg);
+  }
+
+  .feature-card-crazy::after {
+    content: '';
+    @apply absolute -inset-full bg-gradient-to-r from-transparent via-white/10 to-transparent -rotate-45 transition-all duration-1000 opacity-0;
+  }
+
+  .feature-card-crazy:hover::after {
+    @apply left-full opacity-100;
+  }
+
+  .glow-border {
+    @apply relative;
+  }
+
+  .glow-border::before {
+    content: '';
+    @apply absolute -inset-[2px] bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-[2rem] opacity-0 blur-md transition-opacity duration-500 -z-10;
+  }
+
+  .glow-border:hover::before {
+    @apply opacity-30;
+  }
+
   .btn-premium {
     @apply bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-500 hover:to-indigo-600 text-white rounded-2xl px-8 py-4 font-black uppercase tracking-[0.2em] text-[10px] transition-all duration-300 shadow-2xl shadow-blue-500/25 border border-white/10 hover:shadow-indigo-500/40 active:scale-95 flex items-center justify-center gap-3;
   }
@@ -128,14 +161,44 @@
 }
 
 .glass-navbar {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(229, 231, 235, 1);
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 231, 235, 1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .nav-link-crazy {
+    @apply relative transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400;
+  }
+
+  .nav-link-crazy::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 w-0 h-[2px] bg-blue-600 transition-all duration-300;
+  }
+
+  .nav-link-crazy:hover::after {
+    @apply w-full;
+  }
+
+  .btn-crazy {
+    @apply relative overflow-hidden transition-all duration-500 active:scale-90;
+  }
+
+  .btn-crazy:hover {
+    @apply -translate-y-2 shadow-[0_10px_20px_rgba(59,130,246,0.4)] scale-105;
+  }
+
+  .hero-title-crazy {
+    @apply transition-all duration-700;
+  }
+
+  .hero-title-crazy:hover {
+    @apply scale-[1.02] -rotate-1;
+    text-shadow: 0 10px 30px rgba(59,130,246,0.3);
+  }
 
 .dark .glass-navbar {
   background-color: rgba(17, 24, 39, 0.8);
