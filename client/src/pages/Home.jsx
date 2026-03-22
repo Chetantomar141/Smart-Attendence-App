@@ -50,27 +50,36 @@ const Home = () => {
       gsap.from(".feature-card", {
         scrollTrigger: {
           trigger: ".features-grid",
-          start: "top 90%",
+          start: "top 95%", // Earlier trigger point
+          toggleActions: "play none none none",
+          once: true // Only animate once
         },
         y: 15,
         opacity: 0,
         duration: 0.3,
         stagger: 0.05,
-        ease: "power2.out"
+        ease: "power2.out",
+        clearProps: "all" // Clear styles after animation
       });
 
       // Stats Animation
       gsap.from(".stat-item", {
         scrollTrigger: {
           trigger: ".stats-section",
-          start: "top 90%",
+          start: "top 95%",
+          toggleActions: "play none none none",
+          once: true
         },
         scale: 0.95,
         opacity: 0,
         duration: 0.3,
         stagger: 0.05,
-        ease: "power2.out"
+        ease: "power2.out",
+        clearProps: "all"
       });
+
+      // Ensure ScrollTrigger refreshes positions
+      ScrollTrigger.refresh();
     });
 
     return () => ctx.revert();

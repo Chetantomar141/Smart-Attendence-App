@@ -96,7 +96,8 @@ const CircularChart = ({ title, data, colors, prefix = "" }) => {
       y: 10,
       stagger: 0.05,
       duration: 0.3,
-      ease: "power2.out"
+      ease: "power2.out",
+      clearProps: "all"
     });
   }, []);
 
